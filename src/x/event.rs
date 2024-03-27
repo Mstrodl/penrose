@@ -8,6 +8,7 @@ use crate::{
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::convert::TryFrom;
+use x11rb::protocol::xproto::ModMask;
 
 /// Wrapper around the low level X event types that correspond to request / response data when
 /// communicating with the X server itself.
@@ -34,6 +35,8 @@ pub enum XEvent {
     Destroy(Xid),
     /// A grabbed key combination has been entered by the user
     KeyPress(KeyCode),
+    /// A grabbed key combination has been released by the user
+    KeyRelease(ModMask),
     /// The mouse pointer has left the current client window
     Leave(PointerChange),
     /// Keybindings have changed
@@ -67,6 +70,7 @@ impl std::fmt::Display for XEvent {
             FocusIn(_) => write!(f, "FocusIn"),
             Destroy(_) => write!(f, "Destroy"),
             KeyPress(_) => write!(f, "KeyPress"),
+            KeyRelease(_) => write!(f, "KeyRelease"),
             Leave(_) => write!(f, "Leave"),
             MappingNotify => write!(f, "MappingNotify"),
             MapRequest(_) => write!(f, "MapRequest"),

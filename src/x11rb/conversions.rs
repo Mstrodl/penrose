@@ -77,6 +77,8 @@ pub(crate) fn convert_event<C: Connection>(conn: &Conn<C>, event: Event) -> Resu
             )))
         }
 
+        Event::XkbStateNotify(event) => Ok(Some(XEvent::KeyRelease(event.mods))),
+
         Event::MapRequest(event) => Ok(Some(XEvent::MapRequest(Xid(event.window)))),
 
         Event::UnmapNotify(event) => Ok(Some(XEvent::UnmapNotify(Xid(event.window)))),
