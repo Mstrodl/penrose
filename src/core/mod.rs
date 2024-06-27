@@ -458,9 +458,9 @@ where
         info!("registering SIGCHILD signal handler");
         // SAFETY: there is no previous signal handler so we are safe to set our own without needing
         //         to worry about UB from the previous handler being invalid.
-        if let Err(e) = unsafe { signal(Signal::SIGCHLD, SigHandler::SigIgn) } {
-            panic!("unable to set signal handler: {}", e);
-        }
+        // if let Err(e) = unsafe { signal(Signal::SIGCHLD, SigHandler::SigIgn) } {
+        //     panic!("unable to set signal handler: {}", e);
+        // }
 
         handle::mapping_notify(&self.key_bindings, &self.mouse_bindings, &self.x)?;
 
